@@ -9,11 +9,11 @@ try {
 }
 
 export const MONGO_URL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
-export const PORT = process.env.PORT || 9000;
+export const PORT = process.env.PORT || 5000;
 
 export const TESTNET = "testnet";
 export const MAINNET = "mainnet";
-export const networkType = process.env.NETWORKTYPE ?? "";
+export const networkType = process.env.NETWORKTYPE ?? "testnet";
 
 export const ACTIVE = "Active";
 export const PENDING = "Pending";
@@ -25,4 +25,20 @@ export const HOURFEE = "hourFee";
 export const MINIMUMFEE = "minimumFee";
 
 export const SEND_UTXO_FEE_LIMIT = 10000;
-export const PRIVATE_KEY: string = process.env.PRIVATE_KEY as string;
+
+let PRIVATE_KEY_TEMP = "";
+if (networkType == TESTNET) {
+  PRIVATE_KEY_TEMP = process.env.PRIVATE_KEY_TESTNET as string;
+} else {
+  PRIVATE_KEY_TEMP = process.env.PRIVATE_KEY_MAINNET as string;
+}
+export const PRIVATE_KEY = PRIVATE_KEY_TEMP;
+
+// Maximum output size for rune airdrop
+export const ONE_TIME_AIRDROP_SIZE = 8;
+
+// Redeem address for mainnet and testnet
+export const TESTNET_REDEEM_ADDRESS =
+  "tb1pjzwn9z0q39y45adgsscy5q4mrl0wrav47lemwvk83gnjtwv3dggqzlgdsl";
+export const MAINNET_REDEEM_ADDRESS =
+  "bc1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxq9vaygt";

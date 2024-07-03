@@ -1,0 +1,171 @@
+openapi: 3.0.1
+
+info:
+  title: Rune Airdrop Backend
+  description: "Backend implementation Rune Claiming Process"
+  version: 0.0.1
+
+servers:
+  - url: "http://localhost:5000/api"
+  - url: "https://rune-airdrop-backend.onrender.com/api"
+
+tags:
+  - name: Main
+
+paths:
+  /different-amount:
+    post:
+      summary: This endpoint is used to transfer different-amount rune token to different addresses.
+      description: This endpoint is used to transfer different-amount rune token to different addresses.
+      tags:
+        - Main
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/differentAmount"
+      responses:
+        "200":
+          description: Different Amount Rune Airdrop Success!
+          content:
+            application/json:
+              schema:
+                type: string
+        "500":
+          description: Different Amount Rune Airdrop failed!
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /same-amount:
+    post:
+      summary: This endpoint is used to transfer same amount rune token to different addresses.
+      description: This endpoint is used to transfer same amount rune token to different addresses.
+      tags:
+        - Main
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/sameAmount"
+      responses:
+        "200":
+          description: Same Amount Rune Airdrop Success!
+          content:
+            application/json:
+              schema:
+                type: string
+        "500":
+          description: Same Amount Rune Airdrop failed!
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /runestone-fee:
+    get:
+      summary: This endpoint is used to calculate each runestone transaction fee.
+      description: This endpoint is used to calculate each runestone transaction fee.
+      tags:
+        - Main
+      responses:
+        "200":
+          description: Calculate redeem runestone transaction Fee Success!
+          content:
+            application/json:
+              schema:
+                type: string
+        "500":
+          description: Calculate redeem runestone transaction Fee failed!
+          content:
+            application/json:
+              schema:
+                type: string
+
+components:
+  schemas:
+    differentAmount:
+      type: object
+      properties:
+        rune_id:
+          type: string
+          example: "ATST•RUNE•AIRDROP•TEST"
+        feeRate:
+          type: number
+          example: 16
+        data:
+          type: string
+          example:
+            [
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 1000,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 1500,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 2000,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 2500,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 3000,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 3500,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 4000,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 4500,
+              },
+            ]
+      required:
+        - rune_id
+        - feeRate
+        - data
+
+    sameAmount:
+      type: object
+      properties:
+        rune_id:
+          type: string
+          example: "ATST•RUNE•AIRDROP•TEST"
+        feeRate:
+          type: number
+          example: 16
+        amount:
+          type: number
+          example: 1000
+        addressList:
+          type: string
+          example:
+            [
+              "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+              "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+              "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+              "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+              "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+              "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+              "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+              "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+              "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+              "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+              "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+            ]
+      required:
+        - rune_id
+        - feeRate
+        - amount
+        - addressList

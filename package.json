@@ -33,6 +33,7 @@
     "mongoose": "^8.0.1",
     "nodemon": "^3.0.1",
     "pre-commit": "^1.2.2",
+    "runelib": "^1.0.7",
     "swagger-ui-express": "^5.0.1",
     "typescript": "^5.2.2",
     "yamljs": "^0.3.0"

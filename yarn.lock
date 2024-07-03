@@ -343,7 +343,7 @@ bip174@^2.1.1:
   resolved "https://registry.npmjs.org/bip174/-/bip174-2.1.1.tgz"
   integrity sha512-mdFV5+/v0XyNYXjBS6CQPLo9ekCx4gtKZFnJm5PMto7Fs9hTTDpkkzOB7/FtluRI6JbUUAu+snTYfJRgHLZbZQ==
 
-bitcoinjs-lib@^6.1.6:
+bitcoinjs-lib@^6.1.5, bitcoinjs-lib@^6.1.6:
   version "6.1.6"
   resolved "https://registry.npmjs.org/bitcoinjs-lib/-/bitcoinjs-lib-6.1.6.tgz"
   integrity sha512-Fk8+Vc+e2rMoDU5gXkW9tD+313rhkm5h6N9HfZxXvYU9LedttVvmXKTgd9k5rsQJjkSfsv6XRM8uhJv94SrvcA==
@@ -1406,6 +1406,13 @@ ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
+
+runelib@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/runelib/-/runelib-1.0.7.tgz#1669923159be15b4f1483fa5f0e8221be3e48252"
+  integrity sha512-XoOw84DbKXV5UrrLnZ47I8ZdLCtqU958v5eheqzPK8/I/xnxSAtpnHdcolubF87+fiPydcC4dJRprC6L8WTlEg==
+  dependencies:
+    bitcoinjs-lib "^6.1.5"
 
 safe-buffer@5.2.1, safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@^5.2.0, safe-buffer@~5.2.0:
   version "5.2.1"
