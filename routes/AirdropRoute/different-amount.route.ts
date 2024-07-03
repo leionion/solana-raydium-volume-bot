@@ -10,7 +10,7 @@ Bitcoin.initEccLib(ecc);
 const DifferentAmountRouter = Router();
 
 // @route    POST api/different-amount
-// @desc     New Order
+// @desc     This endpoint is used to transfer different-amount rune token to different addresses.
 // @access   Private
 
 DifferentAmountRouter.post(

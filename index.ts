@@ -5,7 +5,7 @@ import express from "express";
 import http from "http";
 
 // Configuration Settings from config file, .env file
-import { PORT } from "./config";
+import { PORT } from "./config/config";
 
 // Mutex for API Rate limit protection functionality
 import { Mutex } from "async-mutex";

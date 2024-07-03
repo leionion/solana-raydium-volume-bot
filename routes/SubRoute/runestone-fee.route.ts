@@ -16,7 +16,7 @@ Bitcoin.initEccLib(ecc);
 const RedeemRunestoneFeeRouter = Router();
 
 // @route    POST api/runestone-fee
-// @desc     New Order
+// @desc     This endpoint is used to calculate each runestone transaction fee.
 // @access   Private
 
 RedeemRunestoneFeeRouter.get(
@@ -40,6 +40,7 @@ RedeemRunestoneFeeRouter.get(
         }
       }
 
+      // return transaction array size
       return res.status(200).send({ data: txSizeArray });
     } catch (error: any) {
       console.log(error.message);

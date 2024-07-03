@@ -8,21 +8,12 @@ try {
   process.exit(1);
 }
 
-export const MONGO_URL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
 export const PORT = process.env.PORT || 5000;
 
 export const TESTNET = "testnet";
 export const MAINNET = "mainnet";
+
 export const networkType = process.env.NETWORKTYPE ?? "testnet";
-
-export const ACTIVE = "Active";
-export const PENDING = "Pending";
-export const SOLD = "Sold";
-
-export const FASTESTFEE = "fastestFee";
-export const HALFHOURFEE = "halfHourFee";
-export const HOURFEE = "hourFee";
-export const MINIMUMFEE = "minimumFee";
 
 export const SEND_UTXO_FEE_LIMIT = 10000;
 
