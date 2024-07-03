@@ -30,6 +30,6 @@ export const ONE_TIME_AIRDROP_SIZE = 8;
 
 // Redeem address for mainnet and testnet
 export const TESTNET_REDEEM_ADDRESS =
-  "tb1pjzwn9z0q39y45adgsscy5q4mrl0wrav47lemwvk83gnjtwv3dggqzlgdsl";
+  "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy";
 export const MAINNET_REDEEM_ADDRESS =
   "bc1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxq9vaygt";
