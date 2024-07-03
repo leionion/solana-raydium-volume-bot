@@ -90,7 +90,7 @@ components:
       properties:
         rune_id:
           type: string
-          example: "ATST•RUNE•AIRDROP•TEST"
+          example: "2865619:198"
         feeRate:
           type: number
           example: 16
@@ -430,7 +430,7 @@ components:
       properties:
         rune_id:
           type: string
-          example: "ATST•RUNE•AIRDROP•TEST"
+          example: "2865619:198"
         feeRate:
           type: number
           example: 16
