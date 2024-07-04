@@ -37,7 +37,7 @@ export const calculateRedeemSameAmountTxFee = (
     hash: REDEEM_TRANSACTION_HASH,
     index: 0,
     witnessUtxo: {
-      value: 100000,
+      value: 100000000,
       script: wallet.output,
     },
     tapInternalKey: Buffer.from(wallet.publicKey, "hex").subarray(1, 33),

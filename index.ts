@@ -18,6 +18,8 @@ import YAML from "yamljs";
 import DifferentAmountRouter from "./routes/AirdropRoute/different-amount.route";
 import RedeemRunestoneFeeRouter from "./routes/SubRoute/runestone-fee.route";
 import SameAmountRouter from "./routes/AirdropRoute/same-amount.route";
+import EstimateDifferentAmountRouter from "./routes/EstimateRoute/different-amount-estimate.route";
+import EstimateSameAmountRouter from "./routes/EstimateRoute/same-amount-estimate.route";
 
 // Mutex Variable setting for API Rate Limit functionality
 export const flagMutex = new Mutex();
@@ -47,6 +49,10 @@ const server = http.createServer(app);
 app.use("/api", DifferentAmountRouter);
 app.use("/api", RedeemRunestoneFeeRouter);
 app.use("/api", SameAmountRouter);
+
+// Define routes for estimate airdrop transaction fee
+app.use("/api/estimate", EstimateDifferentAmountRouter);
+app.use("/api/estimate", EstimateSameAmountRouter);
 
 // Define a route to check if the backend server is running
 app.get("/", async (req: any, res: any) => {

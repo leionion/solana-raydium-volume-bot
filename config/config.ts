@@ -38,3 +38,6 @@ export const REDEEM_TRANSACTION_HASH =
   "4444e6e4b16fdc12cce2b96c29da410f27b044fa6e718c7459d5ab2b667623f0";
 // inscription standard utxo value
 export const STANDARD_RUNE_UTXO_VALUE = 546;
+
+// redeem rune id for calculate estimate fee
+export const REDEEM_RUNE_ID = "2586233:1009";
