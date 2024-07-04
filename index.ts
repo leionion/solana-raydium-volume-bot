@@ -17,6 +17,7 @@ import YAML from "yamljs";
 // API endpoint Routers
 import DifferentAmountRouter from "./routes/AirdropRoute/different-amount.route";
 import RedeemRunestoneFeeRouter from "./routes/SubRoute/runestone-fee.route";
+import SameAmountRouter from "./routes/AirdropRoute/same-amount.route";
 
 // Mutex Variable setting for API Rate Limit functionality
 export const flagMutex = new Mutex();
@@ -45,6 +46,7 @@ const server = http.createServer(app);
 // Define routes for different API endpoints
 app.use("/api", DifferentAmountRouter);
 app.use("/api", RedeemRunestoneFeeRouter);
+app.use("/api", SameAmountRouter);
 
 // Define a route to check if the backend server is running
 app.get("/", async (req: any, res: any) => {

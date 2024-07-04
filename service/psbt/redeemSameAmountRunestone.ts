@@ -1,27 +1,19 @@
 import * as Bitcoin from "bitcoinjs-lib";
-import ecc from "@bitcoinerlab/secp256k1";
 import {
   MAINNET,
+  REDEEM_TRANSACTION_HASH,
   STANDARD_RUNE_UTXO_VALUE,
   TESTNET,
+  networkType,
 } from "../../config/config";
 import wallet from "../wallet/initializeWallet";
-import { IUtxo } from "../../utils/types";
 import { RuneId, Runestone, none } from "runelib";
 
-Bitcoin.initEccLib(ecc);
-
-// initialize redeem Rune UTXO to calculate transaction fee
-const redeemRuneUTXO: IUtxo = {
-  txid: "b3ad5a011e91739fb1cb19e336a7bbe31438a96c6ba6eb14e8c9cebc46feef3c",
-  vout: 3,
-  value: 100000,
-};
-
-// Calculate virtual byte of redeem airdrop runestone psbt
-export const getRunestoneSize = (
-  outputSize: number,
-  networkType: string
+export const calculateRedeemSameAmountTxFee = (
+  rune_id: string,
+  feeRate: number,
+  amount: number,
+  addressList: Array<string>
 ): number => {
   //Create psbt instance
   const psbt = new Bitcoin.Psbt({
@@ -33,21 +25,19 @@ export const getRunestoneSize = (
 
   // Create redeem Runestone
   const edicts: any = [];
-  for (let i = 0; i < outputSize; i++) {
-    edicts.push({
-      id: new RuneId(2586233, 1009),
-      amount: 2000,
-      output: i + 1,
-    });
-  }
+  edicts.push({
+    id: new RuneId(+rune_id.split(":")[0], +rune_id.split(":")[1]),
+    amount: 0,
+    output: addressList.length + 1,
+  });
   const mintstone = new Runestone(edicts, none(), none(), none());
 
   // Add input Rune UTXO
   psbt.addInput({
-    hash: redeemRuneUTXO.txid,
-    index: redeemRuneUTXO.vout,
+    hash: REDEEM_TRANSACTION_HASH,
+    index: 0,
     witnessUtxo: {
-      value: redeemRuneUTXO.value,
+      value: 100000,
       script: wallet.output,
     },
     tapInternalKey: Buffer.from(wallet.publicKey, "hex").subarray(1, 33),
@@ -60,7 +50,7 @@ export const getRunestoneSize = (
   });
 
   // Add output rune utxo
-  for (let i = 0; i < outputSize; i++) {
+  for (let i = 0; i < addressList.length; i++) {
     if (networkType == TESTNET) {
       psbt.addOutput({
         address:
@@ -79,5 +69,5 @@ export const getRunestoneSize = (
   const signedPsbt: Bitcoin.Psbt = wallet.signPsbt(psbt, wallet.ecPair);
 
   // return Virtual Size of Runestone Transaction
-  return signedPsbt.extractTransaction(true).virtualSize();
+  return signedPsbt.extractTransaction(true).virtualSize() * feeRate;
 };

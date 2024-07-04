@@ -1,5 +1,9 @@
 import { ITreeItem } from "../../utils/types";
-import { ONE_TIME_AIRDROP_SIZE, networkType } from "../../config/config";
+import {
+  ONE_TIME_AIRDROP_SIZE,
+  STANDARD_RUNE_UTXO_VALUE,
+  networkType,
+} from "../../config/config";
 import wallet from "../wallet/initializeWallet";
 import { getRunestoneSize } from "../psbt/redeemRunestonePsbt";
 
@@ -15,7 +19,7 @@ export const createTreeData = (
       address: data[i].address,
       total_amount: data[i].amount,
       children: [],
-      utxo_value: 546,
+      utxo_value: STANDARD_RUNE_UTXO_VALUE,
       utxo_txid: "",
       utxo_vout: 0,
     });
