@@ -27,7 +27,7 @@ export async function waitUtxoFlag() {
         clearInterval(intervalId);
       }
     };
-    intervalId = setInterval(checkForUtxo, 200);
+    intervalId = setInterval(checkForUtxo, 250);
   });
 }
 

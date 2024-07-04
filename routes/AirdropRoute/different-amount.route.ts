@@ -53,16 +53,29 @@ DifferentAmountRouter.post(
       if (!response.isSuccess) {
         return res.status(500).send({ error: response.data });
       }
-      // Log transaction Hex
-      console.log("Send Fee and UTXO Transaction Hex => ", response.data);
 
+      ////////////////////////////////////////////////////////////////////////////////
+      //
       // broadcast transaction
+      // const txid: any = await pushBTCpmt(response.data, networkType);
+      //
+      ////////////////////////////////////////////////////////////////////////////////
 
-      // const txid = await pushBTCpmt(response.data, networkType);
-      // console.log("Send Fee and UTXO Transaction Id => ", txid);
+      ////////////////////////////////////////////////////////////////////////////////
+      // remove on live version
+      const txid: string =
+        "cbef6b81b45a9b4c859928292589701cc058032a5bd8711ab649807b9402188c";
+      //
+      ////////////////////////////////////////////////////////////////////////////////
+
+      console.log("Sent Fee and UTXO Transaction => ", txid);
+
+      treeData = { ...treeData, utxo_txid: txid, utxo_vout: 2 };
 
       // Start Root tour based on recursive function
-      let resultData: ITreeItem = treeTravelAirdrop(treeData);
+      let resultData: ITreeItem = await treeTravelAirdrop(treeData, rune_id);
+
+      console.log(JSON.stringify(resultData));
 
       return res.status(200).send({ data: "test" });
     } catch (error: any) {

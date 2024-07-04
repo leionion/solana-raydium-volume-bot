@@ -93,7 +93,7 @@ components:
           example: "2865619:198"
         feeRate:
           type: number
-          example: 16
+          example: 20
         data:
           type: string
           example:

@@ -32,8 +32,8 @@ export const getRunestoneSize = (
   for (let i = 0; i < outputSize; i++) {
     edicts.push({
       id: new RuneId(2586233, 1009),
-      amount: 1000,
-      output: i,
+      amount: 2000,
+      output: i + 1,
     });
   }
   const mintstone = new Runestone(edicts, none(), none(), none());
