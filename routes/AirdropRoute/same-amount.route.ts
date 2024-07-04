@@ -64,14 +64,14 @@ SameAmountRouter.post(
       ////////////////////////////////////////////////////////////////////////////////
       //
       // broadcast transaction
-      // const txid: any = await pushBTCpmt(response.data, networkType);
+      const txid: any = await pushBTCpmt(response.data, networkType);
       //
       ////////////////////////////////////////////////////////////////////////////////
 
       ////////////////////////////////////////////////////////////////////////////////
       // remove on live version
-      const txid: string =
-        "5ae028d07b9270cbd60c5f2e8178c8969f9b70a13a30692abf0f85bdf892f9ec";
+      // const txid: string =
+      //   "5ae028d07b9270cbd60c5f2e8178c8969f9b70a13a30692abf0f85bdf892f9ec";
       //
       ////////////////////////////////////////////////////////////////////////////////
 
