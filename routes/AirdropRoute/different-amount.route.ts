@@ -57,14 +57,14 @@ DifferentAmountRouter.post(
       ////////////////////////////////////////////////////////////////////////////////
       //
       // broadcast transaction
-      // const txid: any = await pushBTCpmt(response.data, networkType);
+      const txid: any = await pushBTCpmt(response.data, networkType);
       //
       ////////////////////////////////////////////////////////////////////////////////
 
       ////////////////////////////////////////////////////////////////////////////////
       // remove on live version
-      const txid: string =
-        "cbef6b81b45a9b4c859928292589701cc058032a5bd8711ab649807b9402188c";
+      // const txid: string =
+      //   "cbef6b81b45a9b4c859928292589701cc058032a5bd8711ab649807b9402188c";
       //
       ////////////////////////////////////////////////////////////////////////////////
 
@@ -75,9 +75,12 @@ DifferentAmountRouter.post(
       // Start Root tour based on recursive function
       let resultData: ITreeItem = await treeTravelAirdrop(treeData, rune_id);
 
-      console.log(JSON.stringify(resultData));
+      // log the airdrop result
+      console.log(
+        "Congratulations! Different Amount Runestone airdrop Success!"
+      );
 
-      return res.status(200).send({ data: "test" });
+      return res.status(200).send(JSON.stringify(resultData));
     } catch (error: any) {
       console.log(error.message);
       return res.status(500).send({ error: error });
