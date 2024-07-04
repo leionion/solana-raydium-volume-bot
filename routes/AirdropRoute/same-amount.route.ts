@@ -99,7 +99,7 @@ SameAmountRouter.post(
       // log the airdrop result
       console.log("Congratulations! Same Amount Runestone airdrop Success!");
 
-      return res.status(200).send(txid);
+      return res.status(200).send({ txid: airdropTxid });
     } catch (error: any) {
       console.log(error.message);
       return res.status(500).send({ error: error });
