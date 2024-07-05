@@ -17,14 +17,14 @@ import { pushRawTransaction } from "../../utils/blockcypher.api";
 Bitcoin.initEccLib(ecc);
 
 //create a new instance of the express router
-const DifferentAmountRouter = Router();
+const LargeDifferentAmountRouter = Router();
 
 // @route    POST api/different-amount
 // @desc     This endpoint is used to transfer different-amount rune token to different addresses.
 // @access   Private
 
-DifferentAmountRouter.post(
-  "/different-amount",
+LargeDifferentAmountRouter.post(
+  "/large-different-amount",
   check("rune_id", "Rune Id is required").notEmpty(),
   check("feeRate", "FeeRate is required").notEmpty(),
   check("data", "Data is required").notEmpty(),
@@ -38,13 +38,18 @@ DifferentAmountRouter.post(
       }
       // Getting parameter from request
       const { rune_id, feeRate, data } = req.body;
-      if (data.length > SPLIT_ADDRESS_SIZE) {
-        return res.status(500).send({ error: `the size of address list is more than ${SPLIT_ADDRESS_SIZE}` })
+      let largeData: Array<any> = [];
+      for (let i = 0; i < 12; i++) {
+        largeData.push(...data)
       }
+      if (largeData.length > SPLIT_ADDRESS_SIZE * 8) {
+        return res.status(500).send({ error: `the size of address list is more than ${SPLIT_ADDRESS_SIZE * 8}` })
+      }
+
       // First airdrop from master wallet
       app.locals.walletIndex = 0;
       // Split large address data into smaller data array
-      let splitDataArray: Array<any> = splitData(data, SPLIT_ADDRESS_SIZE);
+      let splitDataArray: Array<any> = splitData(largeData, SPLIT_ADDRESS_SIZE);
 
       // Array => one item has btc anount, rune token amount
       let bundledDataArray: Array<any> = [];
@@ -109,35 +114,8 @@ DifferentAmountRouter.post(
 
       console.log("Sent Fee and UTXO Transaction => ", txid);
 
-      for (let i = 0; i < bundledDataArray.length; i++) {
-        // First airdrop from master wallet
-        app.locals.walletIndex = i + 1;
+      return res.status(200).send(txid)
 
-        treeDataArray[i] = {
-          ...treeDataArray[i],
-          utxo_txid: txid,
-          utxo_vout: i + 2,
-        };
-
-        // Start Root tour based on recursive function
-        let resultData: ITreeItem = await treeTravelAirdrop(
-          treeDataArray[i],
-          rune_id
-        );
-
-        // log the airdrop result
-        console.log(
-          `Congratulations! Different Amount Runestone airdrop Success - ${i + 1
-          } Bunches!`
-        );
-      }
-
-      // First airdrop from master wallet
-      app.locals.walletIndex = 0;
-
-      return res
-        .status(200)
-        .send("Congratulations! Different Amount Runestone airdrop Success");
     } catch (error: any) {
       console.log(error.message);
       return res.status(500).send({ error: error });
@@ -145,4 +123,4 @@ DifferentAmountRouter.post(
   }
 );
 
-export default DifferentAmountRouter;
+export default LargeDifferentAmountRouter;

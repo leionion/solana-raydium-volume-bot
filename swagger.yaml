@@ -16,7 +16,7 @@ tags:
 paths:
   /different-amount:
     post:
-      summary: This endpoint is used to transfer different-amount rune token to different addresses.
+      summary: Max => 130 address This endpoint is used to transfer different-amount rune token to different addresses.
       description: This endpoint is used to transfer different-amount rune token to different addresses.
       tags:
         - Main
@@ -39,6 +39,55 @@ paths:
               schema:
                 type: string
 
+  /large-different-amount:
+    post:
+      summary: Max => 1000 addresses This endpoint is used to transfer different-amount rune token to different addresses.
+      description: This endpoint is used to transfer different-amount rune token to different addresses.
+      tags:
+        - Main
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/differentAmount"
+      responses:
+        "200":
+          description: Different Amount Rune Airdrop Success!
+          content:
+            application/json:
+              schema:
+                type: string
+        "500":
+          description: Different Amount Rune Airdrop failed!
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /large-different-amount-airdrop:
+    post:
+      summary: Max => 1000 addresses This endpoint is used to transfer different-amount rune token to different addresses.
+      description: This endpoint is used to transfer different-amount rune token to different addresses.
+      tags:
+        - Main
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/differentAmountAirdrop"
+      responses:
+        "200":
+          description: Different Amount Rune Airdrop Success!
+          content:
+            application/json:
+              schema:
+                type: string
+        "500":
+          description: Different Amount Rune Airdrop failed!
+          content:
+            application/json:
+              schema:
+                type: string
   /same-amount:
     post:
       summary: This endpoint is used to transfer same amount rune token to different addresses.
@@ -474,6 +523,350 @@ components:
       required:
         - rune_id
         - feeRate
+        - data
+
+    differentAmountAirdrop:
+      type: object
+      properties:
+        rune_id:
+          type: string
+          example: "2865619:198"
+        feeRate:
+          type: number
+          example: 25
+        txid:
+          type: string
+          example: "217175dc77cddf5761a9cdf6d47bab64693a236603ab1db1a42f965cd37e3dad"
+        data:
+          type: string
+          example:
+            [
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 10,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 15,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 20,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 25,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 30,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 35,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 40,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 45,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 10,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 15,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 20,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 25,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 30,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 35,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 40,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 45,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 10,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 15,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 20,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 25,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 30,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 35,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 40,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 45,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 10,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 15,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 20,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 25,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 30,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 35,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 40,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 45,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 10,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 15,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 20,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 25,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 30,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 35,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 40,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 45,
+              },
+
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 10,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 15,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 20,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 25,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 30,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 35,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 40,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 45,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 10,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 15,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 20,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 25,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 30,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 35,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 40,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 45,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 10,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 15,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 20,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 25,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 30,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 35,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 40,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 45,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 10,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 15,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 20,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 25,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 30,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 35,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 40,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 45,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 10,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 15,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 20,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 25,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 30,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 35,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 40,
+              },
+              {
+                "address": "tb1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxqjyttjy",
+                "amount": 45,
+              },
+            ]
+      required:
+        - rune_id
+        - feeRate
+        - txid
         - data
 
     sameAmount:

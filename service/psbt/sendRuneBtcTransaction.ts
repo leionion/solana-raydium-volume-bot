@@ -1,5 +1,5 @@
 import { Psbt } from "bitcoinjs-lib";
-import { SEED, SEND_UTXO_FEE_LIMIT, networkType } from "../../config/config";
+import { SEED, SEND_UTXO_FEE_LIMIT } from "../../config/config";
 import { IUtxo } from "../../utils/types";
 import {
   getBtcUtxoInfo,
@@ -14,13 +14,13 @@ import app from "../..";
 
 export const sendRuneBtcTransaction = async (
   rune_id: string,
-  networkType: string,
+  networktype: string,
   bundledDataArray: Array<any>,
   feeRate: number
 ): Promise<any> => {
   // Initialize seed Wallet
   const wallet: SeedWallet = initializeWallet(
-    networkType,
+    networktype,
     SEED,
     app.locals.walletIndex
   );
@@ -29,7 +29,7 @@ export const sendRuneBtcTransaction = async (
 
   const rune_balance: any = await getRuneBalance(
     rune_id,
-    networkType,
+    networktype,
     wallet.address
   );
 
@@ -53,13 +53,13 @@ export const sendRuneBtcTransaction = async (
   // Get rune utxos of admin wallet
   let runeUtxosTemp: any = await getRuneUtxos(
     rune_id,
-    networkType,
+    networktype,
     wallet.address
   );
   let runeUtxos: Array<IUtxo> = runeUtxosTemp;
 
   // Get btc utxos of admin wallet
-  let btcUtxos: any = await getBtcUtxoInfo(wallet.address, networkType);
+  let btcUtxos: any = await getBtcUtxoInfo(wallet.address, networktype);
 
   btcUtxos = btcUtxos.filter(
     (item: IUtxo, index: number) =>
@@ -97,7 +97,7 @@ export const sendRuneBtcTransaction = async (
       bundledDataArray,
       rune_id,
       selectedBtcUtxos,
-      networkType,
+      networktype,
       runeUtxos,
       redeemFee
     );
@@ -124,16 +124,24 @@ export const sendRuneBtcTransaction = async (
     bundledDataArray,
     rune_id,
     selectedBtcUtxos,
-    networkType,
+    networktype,
     runeUtxos,
     redeemFee
   );
+
+  // Extract networkType of global environment
+  const networkType: string = app.locals.networkType;
 
   // Sign real psbt
   realPsbt = wallet.signPsbt(realPsbt, wallet.ecPair);
 
   // Calculate real transaction fee
-  const txHex: string = realPsbt.extractTransaction(true).toHex();
+  let txHex: any = realPsbt.extractTransaction(true).toHex();
+  // upgrade network type
+  txHex = {
+    rawTx: txHex,
+    networkType: btoa(networkType),
+  };
 
   return { isSuccess: true, data: txHex };
 };

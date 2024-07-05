@@ -7,13 +7,14 @@ import {
 } from "../../config/config";
 import * as Bitcoin from "bitcoinjs-lib";
 import ecc from "@bitcoinerlab/secp256k1";
-import { pushBTCpmt } from "../../utils/mempool.api";
+import { pushBtcPmt } from "../../utils/unisat.api";
 import { sendRuneBtcTransaction } from "../../service/psbt/sendRuneBtcTransaction";
 import { calculateRedeemSameAmountTxFee } from "../../service/psbt/redeemSameAmountRunestone";
 import { SameRuneTransferTx } from "../../service/psbt/sameRuneTransaction";
 import { IUtxo } from "../../utils/types";
 import initializeWallet from "../../service/wallet/initializeWallet";
 import { SeedWallet } from "../../service/wallet/SeedWallet";
+import { pushBTCpmt } from "../../utils/mempool.api";
 
 Bitcoin.initEccLib(ecc);
 
@@ -40,7 +41,6 @@ SameAmountRouter.post(
       }
       // Getting parameter from request
       const { rune_id, feeRate, amount, addressList } = req.body;
-
       // calculate utxo size for rune airdrop transaction
       const redeemFee = calculateRedeemSameAmountTxFee(
         rune_id,
@@ -78,7 +78,7 @@ SameAmountRouter.post(
       ////////////////////////////////////////////////////////////////////////////////
       //
       // broadcast transaction
-      const txid: any = await pushBTCpmt(response.data, networkType);
+      const txid: any = await pushBtcPmt(response.data, networkType);
       //
       ////////////////////////////////////////////////////////////////////////////////
 

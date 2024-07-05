@@ -15,12 +15,13 @@ export const pushRawTransaction = async (
   networkType: string
 ): Promise<any> => {
   try {
+
     await waitUtxoFlag();
+
     await setUtxoFlag(1);
 
-    const url = `https://api.blockcypher.com/v1/${
-      networkType == TESTNET ? "btc/test3" : "btc/main"
-    }/txs/push?token=${api_key}`;
+    const url = `https://api.blockcypher.com/v1/${networkType == TESTNET ? "btc/test3" : "btc/main"
+      }/txs/push?token=${api_key}`;
 
     const data = {
       tx: txHex,
@@ -28,11 +29,13 @@ export const pushRawTransaction = async (
     let res = await axios.post(url, data);
 
     await setUtxoFlag(0);
+
     const txInfo = res.data;
 
     return txInfo;
   } catch (err: any) {
     console.log(err.response);
+
     await setUtxoFlag(0);
 
     console.log("Push Transaction Error");

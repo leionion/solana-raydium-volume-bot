@@ -11,11 +11,14 @@ export const splitData = (data: Array<any>, bundleSize: number): Array<any> => {
   // loop whole data array
   for (let i = 0; i < data.length; i++) {
     if (iterator == bundleSize) {
+
       newSplitDataArray.push(item);
       item = [];
       iterator = 0;
+
     } else {
       item.push(data[i]);
+
       iterator++;
     }
   }

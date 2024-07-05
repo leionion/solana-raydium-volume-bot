@@ -21,9 +21,12 @@ export async function waitUtxoFlag() {
         if (!app.locals.utxoflag) {
           resolve();
           clearInterval(intervalId);
+
+
         }
       } catch (error) {
         reject(error);
+
         clearInterval(intervalId);
       }
     };
@@ -33,8 +36,10 @@ export async function waitUtxoFlag() {
 
 // Set Unisat API Iterator global variable using Mutex module
 export const setApiIterator = async (value: number) => {
+
   const release = await iterator.acquire();
   try {
+
     // Perform actions with the flag variable
     app.locals.iterator = value;
   } finally {
