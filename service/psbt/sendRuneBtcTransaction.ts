@@ -1,5 +1,5 @@
 import { Psbt } from "bitcoinjs-lib";
-import { SEND_UTXO_FEE_LIMIT } from "../../config/config";
+import { SEED, SEND_UTXO_FEE_LIMIT, networkType } from "../../config/config";
 import { IUtxo } from "../../utils/types";
 import {
   getBtcUtxoInfo,
@@ -7,8 +7,12 @@ import {
   getRuneBalance,
 } from "../../utils/unisat.api";
 import { getSendBTCUTXOArray } from "../utxo/utxo.management";
-import wallet from "../wallet/initializeWallet";
 import { RuneTransferpsbt } from "./runeBtcTransactionPsbt";
+import initializeWallet from "../wallet/initializeWallet";
+import { SeedWallet } from "../wallet/SeedWallet";
+
+// Initialize seed Wallet
+const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
 
 export const sendRuneBtcTransaction = async (
   rune_id: string,

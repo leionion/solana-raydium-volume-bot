@@ -1,11 +1,16 @@
 import { ITreeItem } from "../../utils/types";
 import {
   ONE_TIME_AIRDROP_SIZE,
+  SEED,
   STANDARD_RUNE_UTXO_VALUE,
   networkType,
 } from "../../config/config";
-import wallet from "../wallet/initializeWallet";
 import { getRunestoneSize } from "../psbt/redeemRunestonePsbt";
+import initializeWallet from "../wallet/initializeWallet";
+import { SeedWallet } from "../wallet/SeedWallet";
+
+// Initialize seed Wallet
+const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
 
 // Create Tree Data Strucutre
 export const createTreeData = (

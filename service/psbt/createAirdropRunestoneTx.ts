@@ -1,8 +1,12 @@
 import { ITreeItem } from "../../utils/types";
 import * as Bitcoin from "bitcoinjs-lib";
-import { MAINNET, TESTNET, networkType } from "../../config/config";
-import wallet from "../wallet/initializeWallet";
+import { MAINNET, SEED, TESTNET, networkType } from "../../config/config";
 import { RuneId, Runestone, none } from "runelib";
+import initializeWallet from "../wallet/initializeWallet";
+import { SeedWallet } from "../wallet/SeedWallet";
+
+// Initialize seed Wallet
+const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
 
 export const createAirdropRunestoneTx = (
   data: ITreeItem,

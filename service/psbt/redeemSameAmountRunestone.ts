@@ -2,12 +2,17 @@ import * as Bitcoin from "bitcoinjs-lib";
 import {
   MAINNET,
   REDEEM_TRANSACTION_HASH,
+  SEED,
   STANDARD_RUNE_UTXO_VALUE,
   TESTNET,
   networkType,
 } from "../../config/config";
-import wallet from "../wallet/initializeWallet";
 import { RuneId, Runestone, none } from "runelib";
+import initializeWallet from "../wallet/initializeWallet";
+import { SeedWallet } from "../wallet/SeedWallet";
+
+// Initialize seed Wallet
+const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
 
 export const calculateRedeemSameAmountTxFee = (
   rune_id: string,

@@ -17,13 +17,7 @@ export const networkType = process.env.NETWORKTYPE ?? "testnet";
 
 export const SEND_UTXO_FEE_LIMIT = 10000;
 
-let PRIVATE_KEY_TEMP = "";
-if (networkType == TESTNET) {
-  PRIVATE_KEY_TEMP = process.env.PRIVATE_KEY_TESTNET as string;
-} else {
-  PRIVATE_KEY_TEMP = process.env.PRIVATE_KEY_MAINNET as string;
-}
-export const PRIVATE_KEY = PRIVATE_KEY_TEMP;
+export const SEED = process.env.SEED as string;
 
 // Maximum output size for rune airdrop
 export const ONE_TIME_AIRDROP_SIZE = 8;

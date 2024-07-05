@@ -1,15 +1,21 @@
-import { networkType } from "../../config/config";
 import ecc from "@bitcoinerlab/secp256k1";
 import { initEccLib } from "bitcoinjs-lib";
-import { WIFWallet } from "./WIFWallet";
-import { PRIVATE_KEY } from "../../config/config";
+import { SeedWallet } from "./SeedWallet";
 
 initEccLib(ecc as any);
 
-let wallet: any;
+const initializeWallet = (
+  networkType: string,
+  seed: string,
+  index: number
+): SeedWallet => {
+  const wallet: SeedWallet = new SeedWallet({
+    networkType: networkType,
+    seed: seed,
+    index: index,
+  });
 
-wallet = new WIFWallet({
-  networkType: networkType,
-  privateKey: PRIVATE_KEY,
-});
-export default wallet;
+  return wallet;
+};
+
+export default initializeWallet;

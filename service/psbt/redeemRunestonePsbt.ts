@@ -2,14 +2,20 @@ import * as Bitcoin from "bitcoinjs-lib";
 import ecc from "@bitcoinerlab/secp256k1";
 import {
   MAINNET,
+  SEED,
   STANDARD_RUNE_UTXO_VALUE,
   TESTNET,
+  networkType,
 } from "../../config/config";
-import wallet from "../wallet/initializeWallet";
 import { IUtxo } from "../../utils/types";
 import { RuneId, Runestone, none } from "runelib";
+import initializeWallet from "../wallet/initializeWallet";
+import { SeedWallet } from "../wallet/SeedWallet";
 
 Bitcoin.initEccLib(ecc);
+
+// Initialize seed Wallet
+const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
 
 // initialize redeem Rune UTXO to calculate transaction fee
 const redeemRuneUTXO: IUtxo = {
