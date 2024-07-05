@@ -69,6 +69,9 @@ app.use(
 // Set Global Variable Iterator for unisat api distribution
 app.locals.iterator = 0;
 
+// Set Global Variable Iterator for Wallet management
+app.locals.walletIndex = 0;
+
 // Start the Express server to listen on the specified port
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

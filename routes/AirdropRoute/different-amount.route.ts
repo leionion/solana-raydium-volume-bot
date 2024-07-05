@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import { check, validationResult } from "express-validator";
-import { networkType } from "../../config/config";
+import { SEED, SPLIT_ADDRESS_SIZE, networkType } from "../../config/config";
 import * as Bitcoin from "bitcoinjs-lib";
 import ecc from "@bitcoinerlab/secp256k1";
 import { createTreeData } from "../../service/tree/createTree";
@@ -8,6 +8,10 @@ import { ITreeItem } from "../../utils/types";
 import { treeTravelAirdrop } from "../../service/tree/treeTravelAirdrop";
 import { sendRuneBtcTransaction } from "../../service/psbt/sendRuneBtcTransaction";
 import { pushBTCpmt } from "../../utils/mempool.api";
+import { splitData } from "../../utils/splitArray";
+import app from "../..";
+import initializeWallet from "../../service/wallet/initializeWallet";
+import { SeedWallet } from "../../service/wallet/SeedWallet";
 
 Bitcoin.initEccLib(ecc);
 
@@ -34,21 +38,42 @@ DifferentAmountRouter.post(
       // Getting parameter from request
       const { rune_id, feeRate, data } = req.body;
 
-      // Create tree Data structure
-      let treeData: ITreeItem = createTreeData(data, feeRate);
+      // First airdrop from master wallet
+      app.locals.walletIndex = 0;
+      // Split large address data into smaller data array
+      let splitDataArray: Array<any> = splitData(data, SPLIT_ADDRESS_SIZE);
+
+      // Array => one item has btc anount, rune token amount
+      let bundledDataArray: Array<any> = [];
+
+      // Array => splited treeDataarray
+      let treeDataArray: Array<ITreeItem> = [];
+
+      for (let i = 0; i < splitDataArray.length; i++) {
+        let wallet: SeedWallet = initializeWallet(networkType, SEED, i + 1);
+
+        // Create tree Data structure
+        let treeData: ITreeItem = createTreeData(splitDataArray[i], feeRate);
+        treeDataArray.push(treeData);
+
+        bundledDataArray.push({
+          address: wallet.address,
+          rune_amount: treeData.total_amount,
+          btc_amount: treeData.utxo_value,
+        });
+      }
 
       // log the initial tree data btc utxo, total rune token amount
-      console.log("BTC UTXO size => ", treeData.utxo_value);
-      console.log("Total Amount => ", treeData.total_amount);
+      console.log("bundledDataArray => ", bundledDataArray);
 
       // Send BTC utxo containing rune token
       const response = await sendRuneBtcTransaction(
         rune_id,
         networkType,
-        treeData.total_amount,
-        treeData.utxo_value,
+        bundledDataArray,
         feeRate
       );
+
       // if creating psbt is failed, return 500 error
       if (!response.isSuccess) {
         return res.status(500).send({ error: response.data });
@@ -64,23 +89,42 @@ DifferentAmountRouter.post(
       ////////////////////////////////////////////////////////////////////////////////
       // remove on live version
       // const txid: string =
-      //   "cbef6b81b45a9b4c859928292589701cc058032a5bd8711ab649807b9402188c";
+      //   "f13175748fb3aa4944a6f9fc6cc0f202833e272404ec81ef8aa809eba76d9728";
       //
       ////////////////////////////////////////////////////////////////////////////////
 
       console.log("Sent Fee and UTXO Transaction => ", txid);
 
-      treeData = { ...treeData, utxo_txid: txid, utxo_vout: 2 };
+      for (let i = 0; i < bundledDataArray.length; i++) {
+        // First airdrop from master wallet
+        app.locals.walletIndex = i + 1;
 
-      // Start Root tour based on recursive function
-      let resultData: ITreeItem = await treeTravelAirdrop(treeData, rune_id);
+        treeDataArray[i] = {
+          ...treeDataArray[i],
+          utxo_txid: txid,
+          utxo_vout: i + 2,
+        };
 
-      // log the airdrop result
-      console.log(
-        "Congratulations! Different Amount Runestone airdrop Success!"
-      );
+        // Start Root tour based on recursive function
+        let resultData: ITreeItem = await treeTravelAirdrop(
+          treeDataArray[i],
+          rune_id
+        );
 
-      return res.status(200).send(JSON.stringify(resultData));
+        // log the airdrop result
+        console.log(
+          `Congratulations! Different Amount Runestone airdrop Success - ${
+            i + 1
+          } Bunches!`
+        );
+      }
+
+      // First airdrop from master wallet
+      app.locals.walletIndex = 0;
+
+      return res
+        .status(200)
+        .send("Congratulations! Different Amount Runestone airdrop Success");
     } catch (error: any) {
       console.log(error.message);
       return res.status(500).send({ error: error });

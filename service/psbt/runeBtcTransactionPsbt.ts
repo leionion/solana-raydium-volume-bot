@@ -12,8 +12,7 @@ const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
 
 // Create dummy psbt for buyer offer
 export const RuneTransferpsbt = async (
-  total_amount: number,
-  utxo_value: number,
+  bundledDataArray: Array<any>,
   rune_id: string,
   selectedBtcUtxos: Array<IUtxo>,
   networkType: string,
@@ -56,11 +55,16 @@ export const RuneTransferpsbt = async (
 
   // Create Runestone
   const edicts: any = [];
-  edicts.push({
-    id: new RuneId(+rune_id.split(":")[0], +rune_id.split(":")[1]),
-    amount: total_amount,
-    output: 2,
-  });
+
+  // Complete edicts array
+  for (let i = 0; i < bundledDataArray.length; i++) {
+    edicts.push({
+      id: new RuneId(+rune_id.split(":")[0], +rune_id.split(":")[1]),
+      amount: bundledDataArray[i].rune_amount,
+      output: i + 2,
+    });
+  }
+
   const mintstone = new Runestone(edicts, none(), none(), none());
 
   // Add output runestone
@@ -81,17 +85,25 @@ export const RuneTransferpsbt = async (
     0
   );
 
+  // Calculate sum of output btc utxos array values
+  let outputBtcUtxosSum = bundledDataArray.reduce(
+    (accum: number, item: any) => accum + item.btc_amount,
+    0
+  );
+
   // Add output for change
   psbt.addOutput({
     address: wallet.address,
-    value: selectedBtcUtxosSum + runeUtxoArraySum - redeemFee - utxo_value,
+    value:
+      selectedBtcUtxosSum + runeUtxoArraySum - redeemFee - outputBtcUtxosSum,
   });
 
   // Add output for rune airdrop
-  psbt.addOutput({
-    address: wallet.address,
-    value: utxo_value,
-  });
-
+  for (let i = 0; i < bundledDataArray.length; i++) {
+    psbt.addOutput({
+      address: wallet.address,
+      value: bundledDataArray[i].btc_amount,
+    });
+  }
   return psbt;
 };

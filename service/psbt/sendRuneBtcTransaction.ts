@@ -17,21 +17,33 @@ const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
 export const sendRuneBtcTransaction = async (
   rune_id: string,
   networkType: string,
-  total_amount: number,
-  utxo_value: number,
+  bundledDataArray: Array<any>,
   feeRate: number
 ): Promise<any> => {
   //get rune balance of admin wallet
+
   const rune_balance: any = await getRuneBalance(
     rune_id,
     networkType,
     wallet.address
   );
 
+  // Sum of required Rune amount values
+  let runeTokenAmountArraySum = bundledDataArray.reduce(
+    (accum: number, item: any) => accum + item.rune_amount,
+    0
+  );
+
   //Check rune token is enough
-  if (+rune_balance < total_amount) {
+  if (+rune_balance < runeTokenAmountArraySum) {
     return { isSuccess: false, data: `No enough rune balance for ${rune_id}` };
   }
+
+  // Sum of required BTC amount values
+  let btcAmountArraySum = bundledDataArray.reduce(
+    (accum: number, item: any) => accum + item.btc_amount,
+    0
+  );
 
   // Get rune utxos of admin wallet
   let runeUtxosTemp: any = await getRuneUtxos(
@@ -53,7 +65,7 @@ export const sendRuneBtcTransaction = async (
       ) == undefined
   );
 
-  // Sum of required Rune utxos values
+  // Calculate sum of rune utxos array values
   let runeUtxoArraySum = runeUtxos.reduce(
     (accum: number, utxo: IUtxo) => accum + utxo.value,
     0
@@ -62,8 +74,9 @@ export const sendRuneBtcTransaction = async (
   // get initially selected utxo array
   let response = getSendBTCUTXOArray(
     btcUtxos,
-    utxo_value + SEND_UTXO_FEE_LIMIT - runeUtxoArraySum
+    btcAmountArraySum + SEND_UTXO_FEE_LIMIT - runeUtxoArraySum
   );
+
   // check the btc balance is enough
   if (!response.isSuccess) {
     return { isSuccess: false, data: "Not enough balance on your wallet." };
@@ -76,8 +89,7 @@ export const sendRuneBtcTransaction = async (
   for (let i = 0; i < 3; i++) {
     //loop for exact calculation fee
     let redeemPsbt: Psbt = await RuneTransferpsbt(
-      total_amount,
-      utxo_value,
+      bundledDataArray,
       rune_id,
       selectedBtcUtxos,
       networkType,
@@ -93,8 +105,9 @@ export const sendRuneBtcTransaction = async (
     // update selectedBtcUtxo array
     response = getSendBTCUTXOArray(
       btcUtxos,
-      utxo_value + SEND_UTXO_FEE_LIMIT - runeUtxoArraySum
+      btcAmountArraySum + redeemFee - runeUtxoArraySum
     );
+
     if (!response.isSuccess) {
       return { isSuccess: false, data: "Not enough balance in your wallet." };
     }
@@ -103,8 +116,7 @@ export const sendRuneBtcTransaction = async (
 
   // Create real psbt
   let realPsbt: Psbt = await RuneTransferpsbt(
-    total_amount,
-    utxo_value,
+    bundledDataArray,
     rune_id,
     selectedBtcUtxos,
     networkType,

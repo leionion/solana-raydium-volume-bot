@@ -35,3 +35,6 @@ export const STANDARD_RUNE_UTXO_VALUE = 330;
 
 // redeem rune id for calculate estimate fee
 export const REDEEM_RUNE_ID = "2586233:1009";
+
+// Split size for bundling
+export const SPLIT_ADDRESS_SIZE = 20;
