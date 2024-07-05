@@ -10,9 +10,7 @@ import {
 import { RuneId, Runestone, none } from "runelib";
 import initializeWallet from "../wallet/initializeWallet";
 import { SeedWallet } from "../wallet/SeedWallet";
-
-// Initialize seed Wallet
-const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
+import app from "../..";
 
 export const calculateRedeemSameAmountTxFee = (
   rune_id: string,
@@ -20,6 +18,13 @@ export const calculateRedeemSameAmountTxFee = (
   amount: number,
   addressList: Array<string>
 ): number => {
+  // Initialize seed Wallet
+  const wallet: SeedWallet = initializeWallet(
+    networkType,
+    SEED,
+    app.locals.walletIndex
+  );
+
   //Create psbt instance
   const psbt = new Bitcoin.Psbt({
     network:

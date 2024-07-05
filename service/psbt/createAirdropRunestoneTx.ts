@@ -4,10 +4,7 @@ import { MAINNET, SEED, TESTNET, networkType } from "../../config/config";
 import { RuneId, Runestone, none } from "runelib";
 import initializeWallet from "../wallet/initializeWallet";
 import { SeedWallet } from "../wallet/SeedWallet";
-
-// Initialize seed Wallet
-const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
-
+import app from "../..";
 export const createAirdropRunestoneTx = (
   data: ITreeItem,
   rune_id: string
@@ -19,6 +16,13 @@ export const createAirdropRunestoneTx = (
         ? Bitcoin.networks.testnet
         : Bitcoin.networks.bitcoin,
   });
+
+  // Initialize seed Wallet
+  const wallet: SeedWallet = initializeWallet(
+    networkType,
+    SEED,
+    app.locals.walletIndex
+  );
 
   // Create redeem Runestone
   const edicts: any = [];

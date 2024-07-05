@@ -10,9 +10,7 @@ import { getSendBTCUTXOArray } from "../utxo/utxo.management";
 import { RuneTransferpsbt } from "./runeBtcTransactionPsbt";
 import initializeWallet from "../wallet/initializeWallet";
 import { SeedWallet } from "../wallet/SeedWallet";
-
-// Initialize seed Wallet
-const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
+import app from "../..";
 
 export const sendRuneBtcTransaction = async (
   rune_id: string,
@@ -20,6 +18,13 @@ export const sendRuneBtcTransaction = async (
   bundledDataArray: Array<any>,
   feeRate: number
 ): Promise<any> => {
+  // Initialize seed Wallet
+  const wallet: SeedWallet = initializeWallet(
+    networkType,
+    SEED,
+    app.locals.walletIndex
+  );
+
   //get rune balance of admin wallet
 
   const rune_balance: any = await getRuneBalance(

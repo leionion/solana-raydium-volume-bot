@@ -5,10 +5,8 @@ import { IUtxo } from "../../utils/types";
 import { RuneId, Runestone, none } from "runelib";
 import initializeWallet from "../wallet/initializeWallet";
 import { SeedWallet } from "../wallet/SeedWallet";
+import app from "../..";
 Bitcoin.initEccLib(ecc);
-
-// Initialize seed Wallet
-const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
 
 // Create dummy psbt for buyer offer
 export const RuneTransferpsbt = async (
@@ -19,6 +17,13 @@ export const RuneTransferpsbt = async (
   runeUtxos: Array<IUtxo>,
   redeemFee: number
 ): Promise<Bitcoin.Psbt> => {
+  // Initialize seed Wallet
+  const wallet: SeedWallet = initializeWallet(
+    networkType,
+    SEED,
+    app.locals.walletIndex
+  );
+
   // Create psbt instance
   const psbt = new Bitcoin.Psbt({
     network:
@@ -101,7 +106,7 @@ export const RuneTransferpsbt = async (
   // Add output for rune airdrop
   for (let i = 0; i < bundledDataArray.length; i++) {
     psbt.addOutput({
-      address: wallet.address,
+      address: bundledDataArray[i].address,
       value: bundledDataArray[i].btc_amount,
     });
   }

@@ -11,11 +11,9 @@ import { IUtxo } from "../../utils/types";
 import { RuneId, Runestone, none } from "runelib";
 import initializeWallet from "../wallet/initializeWallet";
 import { SeedWallet } from "../wallet/SeedWallet";
+import app from "../..";
 
 Bitcoin.initEccLib(ecc);
-
-// Initialize seed Wallet
-const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
 
 // initialize redeem Rune UTXO to calculate transaction fee
 const redeemRuneUTXO: IUtxo = {
@@ -29,6 +27,13 @@ export const getRunestoneSize = (
   outputSize: number,
   networkType: string
 ): number => {
+  // Initialize seed Wallet
+  const wallet: SeedWallet = initializeWallet(
+    networkType,
+    SEED,
+    app.locals.walletIndex
+  );
+
   //Create psbt instance
   const psbt = new Bitcoin.Psbt({
     network:

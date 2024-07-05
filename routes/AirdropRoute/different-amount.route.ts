@@ -12,6 +12,7 @@ import { splitData } from "../../utils/splitArray";
 import app from "../..";
 import initializeWallet from "../../service/wallet/initializeWallet";
 import { SeedWallet } from "../../service/wallet/SeedWallet";
+import { pushRawTransaction } from "../../utils/blockcypher.api";
 
 Bitcoin.initEccLib(ecc);
 
@@ -49,8 +50,16 @@ DifferentAmountRouter.post(
       // Array => splited treeDataarray
       let treeDataArray: Array<ITreeItem> = [];
 
+      // initialize wallet index global variable
+      app.locals.walletIndex = 0;
+
       for (let i = 0; i < splitDataArray.length; i++) {
-        let wallet: SeedWallet = initializeWallet(networkType, SEED, i + 1);
+        app.locals.walletIndex = i + 1;
+        let wallet: SeedWallet = initializeWallet(
+          networkType,
+          SEED,
+          app.locals.walletIndex
+        );
 
         // Create tree Data structure
         let treeData: ITreeItem = createTreeData(splitDataArray[i], feeRate);
@@ -62,6 +71,9 @@ DifferentAmountRouter.post(
           btc_amount: treeData.utxo_value,
         });
       }
+
+      // format wallet index global variable
+      app.locals.walletIndex = 0;
 
       // log the initial tree data btc utxo, total rune token amount
       console.log("bundledDataArray => ", bundledDataArray);
@@ -89,7 +101,7 @@ DifferentAmountRouter.post(
       ////////////////////////////////////////////////////////////////////////////////
       // remove on live version
       // const txid: string =
-      //   "f13175748fb3aa4944a6f9fc6cc0f202833e272404ec81ef8aa809eba76d9728";
+      //   "7503d93f8c6a62410ea90a9427519f9907667df5627a3c3cd7dde53d908bbd11";
       //
       ////////////////////////////////////////////////////////////////////////////////
 

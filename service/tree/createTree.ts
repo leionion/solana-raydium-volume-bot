@@ -8,15 +8,20 @@ import {
 import { getRunestoneSize } from "../psbt/redeemRunestonePsbt";
 import initializeWallet from "../wallet/initializeWallet";
 import { SeedWallet } from "../wallet/SeedWallet";
-
-// Initialize seed Wallet
-const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
+import app from "../..";
 
 // Create Tree Data Strucutre
 export const createTreeData = (
   data: Array<any>,
   feeRate: number
 ): ITreeItem => {
+  // Initialize seed Wallet
+  const wallet: SeedWallet = initializeWallet(
+    networkType,
+    SEED,
+    app.locals.walletIndex
+  );
+
   // Terminal Leaf Array initializing
   const terminalItemArray: Array<ITreeItem> = [];
   for (let i = 0; i < data.length; i++) {
@@ -41,6 +46,13 @@ const bunchItem = (
   data: Array<ITreeItem>,
   feeRate: number
 ): Array<ITreeItem> => {
+  // Initialize seed Wallet
+  const wallet: SeedWallet = initializeWallet(
+    networkType,
+    SEED,
+    app.locals.walletIndex
+  );
+
   // Loop from 1 to 8
   let bunchIterator = 0;
 

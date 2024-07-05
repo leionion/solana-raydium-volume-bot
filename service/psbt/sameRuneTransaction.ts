@@ -10,10 +10,8 @@ import { IUtxo } from "../../utils/types";
 import { RuneId, Runestone, none } from "runelib";
 import initializeWallet from "../wallet/initializeWallet";
 import { SeedWallet } from "../wallet/SeedWallet";
+import app from "../..";
 Bitcoin.initEccLib(ecc);
-
-// Initialize seed Wallet
-const wallet: SeedWallet = initializeWallet(networkType, SEED, 0);
 
 // Create dummy psbt for buyer offer
 export const SameRuneTransferTx = (
@@ -23,6 +21,13 @@ export const SameRuneTransferTx = (
   networkType: string,
   runeUtxo: IUtxo
 ): string => {
+  // Initialize seed Wallet
+  const wallet: SeedWallet = initializeWallet(
+    networkType,
+    SEED,
+    app.locals.walletIndex
+  );
+
   // Create psbt instance
   const psbt = new Bitcoin.Psbt({
     network:
