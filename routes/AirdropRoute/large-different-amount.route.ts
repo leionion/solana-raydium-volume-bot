@@ -38,18 +38,15 @@ LargeDifferentAmountRouter.post(
       }
       // Getting parameter from request
       const { rune_id, feeRate, data } = req.body;
-      let largeData: Array<any> = [];
-      for (let i = 0; i < 12; i++) {
-        largeData.push(...data)
-      }
-      if (largeData.length > SPLIT_ADDRESS_SIZE * 8) {
+
+      if (data.length > SPLIT_ADDRESS_SIZE * 8) {
         return res.status(500).send({ error: `the size of address list is more than ${SPLIT_ADDRESS_SIZE * 8}` })
       }
 
       // First airdrop from master wallet
       app.locals.walletIndex = 0;
       // Split large address data into smaller data array
-      let splitDataArray: Array<any> = splitData(largeData, SPLIT_ADDRESS_SIZE);
+      let splitDataArray: Array<any> = splitData(data, SPLIT_ADDRESS_SIZE);
 
       // Array => one item has btc anount, rune token amount
       let bundledDataArray: Array<any> = [];

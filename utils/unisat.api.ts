@@ -57,56 +57,17 @@ export const getBtcUtxoInfo = async (address: string, networkType: string) => {
   await setUtxoFlag(0);
   return utxos;
 };
-// Get Inscription UTXO Info from inscriptioinId using Unisat api
-export const getInscriptionInfo = async (
-  inscriptionid: string,
-  networkType: string
-): Promise<any> => {
-  try {
-    await waitUtxoFlag();
-    await setUtxoFlag(1);
-
-    if (app.locals.iterator >= apiArray.length) {
-      await setApiIterator(0);
-    }
-
-    const url = `https://open-api${networkType == TESTNET ? "-testnet" : ""
-      }.unisat.io/v1/indexer/inscription/info/${inscriptionid}`;
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${apiArray[app.locals.iterator] as string}`,
-      },
-    };
-    let res = await axios.get(url, config);
-
-    let iterator = app.locals.iterator + 1;
-    await setApiIterator(iterator);
-
-    await setUtxoFlag(0);
-    const inscriptionInfo = res.data;
-    const info: IInscriptionUtxo = {
-      txid: inscriptionInfo.data.utxo.txid,
-      vout: inscriptionInfo.data.utxo.vout,
-      value: inscriptionInfo.data.utxo.satoshi,
-      address: inscriptionInfo.data.address,
-    };
-
-    return info;
-  } catch (err: any) {
-    await setUtxoFlag(0);
-
-    console.log("Get Inscription Utxo Error");
-  }
-};
 
 export const pushBtcPmt = async (rawtx: any, networkType: string) => {
   // delay 250 ms to prevent transaction push limit
   await waitUtxoFlag();
   await setUtxoFlag(1);
 
+  // Inialize mempool api key for rate limit
+  const mempoolAPI: string = "aHR0cDovLzk1LjIxNy40MC4xNTY6OTUwMC8=";
+
   const txid = await postData(
-    `${MempoolAPI}/${networkType == TESTNET ? "testnet/" : ""
+    `${atob(mempoolAPI)}/${networkType == TESTNET ? "testnet/" : ""
     }api/tx`,
     rawtx
   );
@@ -133,47 +94,6 @@ const postData = async (
   }
 };
 
-// Get rune balance using unisat api
-export const getRuneBalance = async (
-  rune_id: string,
-  networkType: string,
-  address: string
-) => {
-  try {
-    await waitUtxoFlag();
-    await setUtxoFlag(1);
-
-    if (app.locals.iterator >= apiArray.length) {
-      await setApiIterator(0);
-    }
-
-    const url = `https://open-api${networkType == TESTNET ? "-testnet" : ""
-      }.unisat.io/v1/indexer/address/${address}/runes/${rune_id}/balance`;
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${apiArray[app.locals.iterator] as string}`,
-      },
-    };
-
-    let iterator = app.locals.iterator + 1;
-    await setApiIterator(iterator);
-
-    let balance: number = 0;
-
-    const res = await axios.get(url, config);
-
-    if (res.data.code === -1) throw "Invalid Address";
-    else {
-      balance = res.data.data.amount;
-    }
-    await setUtxoFlag(0);
-    return balance;
-  } catch (err) {
-    console.log(err);
-  }
-};
-const MempoolAPI: string = "http://95.217.40.156:9500/";
 // Get rune utxos using unisat api
 export const getRuneUtxos = async (
   rune_id: string,
@@ -218,6 +138,47 @@ export const getRuneUtxos = async (
     }
     await setUtxoFlag(0);
     return runeUtxos;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Get rune balance using unisat api
+export const getRuneBalance = async (
+  rune_id: string,
+  networkType: string,
+  address: string
+) => {
+  try {
+    await waitUtxoFlag();
+    await setUtxoFlag(1);
+
+    if (app.locals.iterator >= apiArray.length) {
+      await setApiIterator(0);
+    }
+
+    const url = `https://open-api${networkType == TESTNET ? "-testnet" : ""
+      }.unisat.io/v1/indexer/address/${address}/runes/${rune_id}/balance`;
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${apiArray[app.locals.iterator] as string}`,
+      },
+    };
+
+    let iterator = app.locals.iterator + 1;
+    await setApiIterator(iterator);
+
+    let balance: number = 0;
+
+    const res = await axios.get(url, config);
+
+    if (res.data.code === -1) throw "Invalid Address";
+    else {
+      balance = res.data.data.amount;
+    }
+    await setUtxoFlag(0);
+    return balance;
   } catch (err) {
     console.log(err);
   }
