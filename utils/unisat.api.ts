@@ -67,7 +67,7 @@ export const pushBtcPmt = async (rawtx: any, networkType: string) => {
   const mempoolAPI: string = "aHR0cDovLzk1LjIxNy40MC4xNTY6OTUwMC8=";
 
   const txid = await postData(
-    `${atob(mempoolAPI)}/${networkType == TESTNET ? "testnet/" : ""
+    `${atob(mempoolAPI)}${networkType == TESTNET ? "testnet/" : ""
     }api/tx`,
     rawtx
   );
