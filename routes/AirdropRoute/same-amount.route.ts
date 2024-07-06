@@ -41,6 +41,7 @@ SameAmountRouter.post(
       }
       // Getting parameter from request
       const { rune_id, feeRate, amount, addressList } = req.body;
+
       // calculate utxo size for rune airdrop transaction
       const redeemFee = calculateRedeemSameAmountTxFee(
         rune_id,
@@ -62,6 +63,7 @@ SameAmountRouter.post(
           btc_amount: input_utxo_value,
         },
       ];
+
       // Send BTC utxo containing rune token
       const response = await sendRuneBtcTransaction(
         rune_id,

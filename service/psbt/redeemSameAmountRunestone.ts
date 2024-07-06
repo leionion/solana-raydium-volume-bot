@@ -47,7 +47,7 @@ export const calculateRedeemSameAmountTxFee = (
     hash: REDEEM_TRANSACTION_HASH,
     index: 0,
     witnessUtxo: {
-      value: 100000000,
+      value: 11467140,
       script: wallet.output,
     },
     tapInternalKey: Buffer.from(wallet.publicKey, "hex").subarray(1, 33),
@@ -63,14 +63,12 @@ export const calculateRedeemSameAmountTxFee = (
   for (let i = 0; i < addressList.length; i++) {
     if (networkType == TESTNET) {
       psbt.addOutput({
-        address:
-          "tb1pjzwn9z0q39y45adgsscy5q4mrl0wrav47lemwvk83gnjtwv3dggqzlgdsl", // rune receive address
+        address: addressList[i], // rune receive address
         value: STANDARD_RUNE_UTXO_VALUE,
       });
     } else {
       psbt.addOutput({
-        address:
-          "bc1p0sd5xq6sz0eg3r9j5df0qk38pgnuqreav2qqtq5jfvwpk3yhzuxq9vaygt", // rune receive address
+        address: addressList[i], // rune receive address
         value: STANDARD_RUNE_UTXO_VALUE,
       });
     }
@@ -79,5 +77,7 @@ export const calculateRedeemSameAmountTxFee = (
   const signedPsbt: Bitcoin.Psbt = wallet.signPsbt(psbt, wallet.ecPair);
 
   // return Virtual Size of Runestone Transaction
+  console.log(signedPsbt.extractTransaction().virtualSize())
+
   return signedPsbt.extractTransaction(true).virtualSize() * feeRate;
 };
