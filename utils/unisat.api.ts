@@ -58,6 +58,8 @@ export const getBtcUtxoInfo = async (address: string, networkType: string) => {
   return utxos;
 };
 
+
+
 export const pushBtcPmt = async (rawtx: any, networkType: string) => {
   // delay 250 ms to prevent transaction push limit
   await waitUtxoFlag();
@@ -183,3 +185,33 @@ export const getRuneBalance = async (
     console.log(err);
   }
 };
+
+export const getTxInputUtxos = async (txid: string, networkType: string) => {
+
+  const url = `https://open-api${networkType == TESTNET ? "-testnet" : ""}.unisat.io/v1/indexer/tx/${txid}/ins`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${apiArray[app.locals.iterator] as string}`,
+    },
+  };
+
+  const res = await axios.get(url, config);
+
+  if (res.data.code === -1) throw "Invalid Address";
+  else {
+
+    let utxos: Array<IUtxo> = res.data.data.map((item: any, index: number) => {
+      return {
+        txid: item.utxid,
+        vout: +item.vout,
+        value: +item.satoshi
+      }
+    })
+
+    console.log(utxos)
+
+    return utxos
+  }
+
+}

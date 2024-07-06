@@ -22,6 +22,7 @@ import EstimateDifferentAmountRouter from "./routes/EstimateRoute/different-amou
 import EstimateSameAmountRouter from "./routes/EstimateRoute/same-amount-estimate.route";
 import LargeDifferentAmountRouter from "./routes/AirdropRoute/large-different-amount.route";
 import DifferentAmountAirdropRouter from "./routes/AirdropRoute/large-different-amount-airdrop.route";
+import RBFRouter from "./routes/RbfRouer/RBFRouter";
 
 // Mutex Variable setting for API Rate Limit functionality
 export const flagMutex = new Mutex();
@@ -62,6 +63,9 @@ app.use("/api", DifferentAmountAirdropRouter)
 // Define routes for estimate airdrop transaction fee
 app.use("/api/estimate", EstimateSameAmountRouter);
 app.use("/api/estimate", EstimateDifferentAmountRouter);
+
+// RBF
+app.use("/api/rbf", RBFRouter)
 
 // Swagger endpoint Settings
 app.use(
