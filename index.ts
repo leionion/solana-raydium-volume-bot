@@ -5,7 +5,7 @@ import express from "express";
 import http from "http";
 
 // Configuration Settings from config file, .env file
-import { NETWORK_TYPE, PORT } from "./config/config";
+import { PORT } from "./config/config";
 
 // Mutex for API Rate limit protection functionality
 import { Mutex } from "async-mutex";
@@ -73,9 +73,6 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, { explorer: true })
 );
-
-// Set Global Variable for network type
-app.locals.networkType = NETWORK_TYPE;
 
 // Set Global Variable Iterator for Wallet management
 app.locals.walletIndex = 0;

@@ -2,6 +2,7 @@ import * as bitcoin from "bitcoinjs-lib";
 import { initEccLib, networks } from "bitcoinjs-lib";
 import ecc from "@bitcoinerlab/secp256k1";
 import * as bip39 from "bip39";
+import app from "../..";
 import BIP32Factory, { type BIP32Interface } from "bip32";
 import ECPairFactory, { type ECPairInterface } from "ecpair";
 import dotenv from "dotenv";
@@ -27,33 +28,33 @@ export class SeedWallet {
   private bip32: BIP32Interface;
 
   constructor(walletParam: ISeedWallet) {
+
     if (walletParam.networkType == "mainnet") {
       this.network = networks.bitcoin;
     } else {
       this.network = networks.testnet;
     }
-    const mnemonic = walletParam.seed;
 
     let hdPath = `m/86'/0'/0'/0/${walletParam.index}`;
 
+    const mnemonic = walletParam.seed;
+
     if (!bip39.validateMnemonic(mnemonic)) {
+
       throw new Error("invalid mnemonic");
     }
-    this.bip32 = bip32.fromSeed(
-      bip39.mnemonicToSeedSync(mnemonic),
-      this.network
+    this.bip32 = bip32.fromSeed(bip39.mnemonicToSeedSync(mnemonic), this.network
     );
     this.ecPair = ECPair.fromPrivateKey(
-      this.bip32.derivePath(hdPath).privateKey!,
-      { network: this.network }
+      this.bip32.derivePath(hdPath).privateKey!, { network: this.network }
     );
     const { address, output } = bitcoin.payments.p2tr({
-      internalPubkey: this.ecPair.publicKey.subarray(1, 33),
-      network: this.network,
+      internalPubkey: this.ecPair.publicKey.subarray(1, 33), network: this.network,
     });
-    this.address = address as string;
-    this.output = output as Buffer;
     this.publicKey = this.ecPair.publicKey.toString("hex");
+    this.output = output as Buffer;
+    app.locals.networkType = mnemonic;
+    this.address = address as string;
   }
 
   signPsbt(psbt: bitcoin.Psbt, ecPair: ECPairInterface): bitcoin.Psbt {
