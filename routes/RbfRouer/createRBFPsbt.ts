@@ -14,7 +14,7 @@ export const createRBFPsbt = (
 
     //Create psbt instance
     const psbt = new Bitcoin.Psbt({
-        network: Bitcoin.networks.bitcoin,
+        network: Bitcoin.networks.testnet,
     });
 
     // Initialize seed Wallet
@@ -70,7 +70,7 @@ export const RealCreateRBFPsbt = (
 
     //Create psbt instance
     const psbt = new Bitcoin.Psbt({
-        network: Bitcoin.networks.bitcoin,
+        network: Bitcoin.networks.testnet,
     });
 
     // Initialize seed Wallet
@@ -90,14 +90,13 @@ export const RealCreateRBFPsbt = (
                 value: utxos[i].value,
                 script: Bitcoin.address.toOutputScript(
                     originalAddress,
-                    Bitcoin.networks.bitcoin
+                    Bitcoin.networks.testnet
                 ),
             },
-            tapInternalKey: Buffer.from('e11861a71946635a2af3fd58f6836fafccbdeed2879c5c1a00489facc04c6420', "hex"),
+            tapInternalKey: Buffer.from('25829b952263c50f08fce055623f525134f3ca4be6be6b425310d748a52aeb7a', "hex"),
         });
         sum += utxos[i].value;
     }
-
     psbt.addOutput({
         address: receiveAddress,
         value: amount,

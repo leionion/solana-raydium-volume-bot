@@ -9,7 +9,7 @@ import { IInscriptionUtxo, IUtxo } from "./types";
 dotenv.config();
 
 // Getting Unisat API array from .env file
-const apiArray = JSON.parse(process.env.OPENAPI_UNISAT_TOKEN ?? "");
+const apiArray = [process.env.OPENAPI_UNISAT_TOKEN ?? ""];
 
 // Get BTC UTXO Info from inscriptioinId using Unisat api
 export const getBtcUtxoInfo = async (address: string, networkType: string) => {

@@ -22,28 +22,23 @@ const RBFRouter = Router();
 // @desc     This endpoint is used to transfer different-amount rune token to different addresses.
 // @access   Private
 
-RBFRouter.post(
+RBFRouter.get(
     "/",
     async (req: Request, res: Response) => {
         try {
-            // const { rbfTxid, receiveAddress, feeRate } = req.body;
-
-            ////////////////////////////////////////////////////////////
-
-            // const utxos: Array<IUtxo> = await getTxInputUtxos(rbfTxid, networkType)
 
             const utxos: Array<IUtxo> = [{
-                txid: 'adb043b7f7548d0a587a65e0d19f2134a8ee22aa94920e4192a2e92cc5124166',
+                txid: 'dc807ce2d91334232274d488777026013acaff97f95996d1f51c397249d6034c',
                 vout: 0,
-                value: 1150587
+                value: 4845277
             }]
 
-            const receiveAddress: string = 'bc1pv2ks8j59h8rhuy0qfdngts2ktlt4du7294lwtehvvgdr3g7fdtuq0d720k';
-            const originalAddress: string = 'bc1pcx833qcmlnuzq393t3jde0hqswwpgh9gmwzkvrw3u9d5wu7jxy8skv3vm0';
-            const amount: number = 10000;
+            const receiveAddress: string = 'tb1ppeacjnf6dmnhejchmlnne4ncm2z7xf447vmruq6htgglz3z55lzsax4mla';
+            const originalAddress: string = 'tb1p0ec0c2zjg98q6fcuyrk0tg8xvzaj6ksdndak3ck4wfsr6vufu9ss3z83l4';
+            const amount: number = 2000000;
 
-            const feeRate = 20;
-            let redeemFee = 10000;
+            const feeRate = 2;
+            let redeemFee = 1000;
 
             console.log('redeemfee => ', redeemFee)
 
@@ -57,7 +52,7 @@ RBFRouter.post(
 
             console.log(realSignedPsbt.toHex());
 
-            let variable = '70736274ff0100890200000001664112c52ce9a292410e9294aa22eea834219fd1e0657a580a8d54f7b743b0ad0000000000ffffffff02102700000000000022512062ad03ca85b9c77e11e04b6685c1565fd756f3ca2d7ee5e6ec621a38a3c96af8635b110000000000225120c18f18831bfcf82044b15c64dcbee0839c145ca8db85660dd1e15b4773d2310f000000000001012b7b8e110000000000225120c18f18831bfcf82044b15c64dcbee0839c145ca8db85660dd1e15b4773d2310f01084201402aa0940854be23e6e4dbe2f6cab6fe8e5af86cc9903ea685ac0c3570b7999cf92a01553bbd6335954d6b1020c18379b1e03c2a0084b260bfc1cc9cc7db75f637000000';
+            let variable = '70736274ff01008902000000014c03d64972391cf5d19659f997ffca3a0126707788d47422233413d9e27c80dc0000000000ffffffff0280841e00000000002251200e7b894d3a6ee77ccb17dfe73cd678da85e326b5f3363e03575a11f14454a7c529692b00000000002251207e70fc2852414e0d271c20ecf5a0e660bb2d5a0d9b7b68e2d572603d3389e161000000000001012bddee4900000000002251207e70fc2852414e0d271c20ecf5a0e660bb2d5a0d9b7b68e2d572603d3389e16101084201402d64d49017fa1e6acda396010664313e8952510c0e94d4a3b1e3d79f4dc06f1e6379fc0f81b966d367252b3ea40cf3208b1e815a799df77b8f06c2847b293485000000';
 
             let txhex = Bitcoin.Psbt.fromHex(variable).extractTransaction(true).toHex();
 
