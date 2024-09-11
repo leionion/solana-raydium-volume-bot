@@ -1,76 +1,64 @@
 # Solana Volume Bot
 
-Welcome to the Solana Volume Bot, an open-source script designed to help you achieve desired transaction volumes on the Solana blockchain. This powerful tool is perfect for users looking to manage multiple transactions efficiently and effectively.
+The Solana Volume Bot is a sophisticated open-source tool designed to efficiently facilitate high-volume transactions on the Solana blockchain. This script is ideal for users seeking to streamline complex transaction processes while maximizing performance.
 
-NOTE: This is a older version of my Solana Volume bot, **join our [DISCORD](https://discord.gg/solana-scripts) for more info**
+## Initial Setup
 
+To successfully set up and activate the Solana Volume Bot, please adhere to the following procedures.
 
-OPEN Source Version:
+### Step 1: Preparation
 
+#### a) Dependency Installation
 
+Execute the command below to install all required dependencies:
 
-https://github.com/user-attachments/assets/3afb9c6b-5233-4a44-9a05-2d87a2b5b094
-
-
-
-Newest Update:
-
-
-
-
-https://github.com/user-attachments/assets/81780630-4f8e-4b5c-90d0-5854df6605b3
-
-
-
-
-## Getting Started
-
-To get started with the Solana Volume Bot, follow these steps to ensure a smooth setup and execution process.
-
-### 1. Setup
-
-#### a) Install Dependencies
-Run the following command to install the necessary dependencies:
+```bash
 npm i
+```
 
-#### b) Configure Environment Variables
-Edit the `.env` file to include your wallet private key and RPC URL:
-- **Wallet Private Key:** The wallet you enter in the config pays for Jito tips and sends all the SOL/WSOL.
-- **RPC URL:** Your Solana RPC endpoint.
+#### b) Environment Configuration
 
-#### c) Start the Script
-Run the script with the following command:
+Modify the `.env` file to specify necessary credentials:
+
+- **Wallet Private Key:** This key must be configured to handle Jito tips and manage SOL/WSOL transfers.
+- **RPC URL:** Specify the RPC endpoint for Solana.
+
+#### c) Launch the Script
+
+Run the script using:
+
+```bash
 node main.js
+```
 
-### 2. Execution Steps
+### Step 2: Execution Workflow
 
-**Important:** Run all steps in order and do not create new keypairs unless you reclaim your SOL.
+**Note:** Ensure procedures are followed sequentially, and avoid generating new keypairs unless reclaiming SOL.
 
-#### a) Create New Keypairs
-Step 1: Create new keypairs for your volume transactions. This step is necessary if you want to ensure fresh keypairs.
+#### a) Keypair Generation
 
-#### b) Distribute SOL/WSOL
-Step 2: Distribute SOL/WSOL to the keypairs.
-- **Gas Fees:** The SOL you send here is ONLY FOR GAS FEES. It is recommended to send anywhere from 0.05 to 1 SOL.
-- **Volume Spam:** This is the amount of SOL each keypair will use to volume spam and rotate. You can enter any custom amount to look natural.
+Generate new keypairs for transaction operations to maintain fresh and distinct addresses.
 
-#### c) Simulate Volume
-Step 3: Simulate all volume and calculate all Jito tip fees and Raydium 5bps fee to see EXACTLY how much you will spend to achieve the volume you want. This step ensures you know the exact costs involved.
+#### b) SOL/WSOL Allocation
 
-#### d) Volume Bot
-Step 4: Execute the volume bot to get your desired volume. It is recommended to set a timeout between swaps at around 3-10 seconds to look natural.
+Evenly distribute SOL/WSOL across keypairs for transaction gas fees. The recommended gas provision ranges from 0.05 to 1 SOL. Set a specific volume for each keypair to process transactions seamlessly.
 
-#### e) Retrieve Funds
-Step 5: Retrieve all funds from the keypairs automatically. This step will retrieve all the WSOL and SOL you sent and send it to the wallet in the config file.
+#### c) Volume Simulation
 
-## Additional Resources
+Conduct a simulation to calculate Jito tip fees and Raydium 5bps charges, allowing you to understand the complete cost associated with achieving target volumes.
 
-For more detailed instructions and updates, visit our Discord below or DM me at @benorizz0 on Telegram. Here you will find comprehensive documentation and community support for any issues you encounter.
+#### d) Execute Volume Transactions
+
+Activate the volume bot to carry out desired transaction volumes. Implement time intervals between swaps, ideally between 3-10 seconds, to maintain transaction authenticity.
+
+#### e) Fund Recovery
+
+Retrieve remaining funds from the keypairs, consolidating WSOL and SOL back to the configured wallet.
+
+## Additional Support
+
+For comprehensive guidance and updates, directly contact @inscNix on Telegram. Extended documentation and support are available to assist with any queries.
 
 ### Conclusion
 
-The Solana Volume Bot is a robust tool for managing multiple transactions on the Solana blockchain. By following the setup and execution steps outlined above, you can efficiently handle buying and selling operations with ease. Join our community on GitHub and take advantage of this powerful open-source solution.
-
-Optimize your Solana transactions today with the Solana Volume Bot!
-
-For more information, check out our [DISCORD](https://discord.gg/solana-scripts)
+Implement the Solana Volume Bot to enhance your Solana transaction operations. Its efficiency ensures a seamless buying and selling experience on the blockchain.
