@@ -21,7 +21,8 @@ npm i
 Modify the `.env` file to specify necessary credentials:
 
 - **Wallet Private Key:** This key must be configured to handle Jito tips and manage SOL/WSOL transfers.
-- **RPC URL:** Specify the RPC endpoint for Solana.
+- **RPC URL:** Specify the RPC endpoint for Solana ecosystem
+  .
 
 #### c) Launch the Script
 
