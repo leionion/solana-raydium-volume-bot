@@ -50,7 +50,7 @@ Conduct a simulation to calculate Jito tip fees and Raydium 5bps charges, allowi
 
 #### d) Execute Volume Transactions
 
-Activate the volume bot to carry out desired transaction volumes. Implement time intervals between swaps, ideally between 3-10 seconds, to maintain transaction authenticity.
+Activate the raydium volume bot to carry out desired transaction volumes. Implement time intervals between swaps, ideally between 2-10 seconds, to maintain transaction authenticity.
 
 #### e) Fund Recovery
 
