@@ -20,7 +20,7 @@ npm i
 
 Modify the `.env` file to specify necessary credentials:
 
-- **Wallet Private Key:** This key must be configured to handle Jito tips and manage SOL/WSOL transfers.
+- **Wallet Private Key:** This key must be configured to handle Jito tips and manage SOL/WSOL native token transfers.
 - **RPC URL:** Specify the RPC endpoint for Solana ecosystem
   .
 
@@ -46,7 +46,7 @@ Evenly distribute SOL/WSOL across keypairs for transaction gas fees. The recomme
 
 #### c) Volume Simulation
 
-Conduct a simulation to calculate Jito tip fees and Raydium 5bps charges, allowing you to understand the complete cost associated with achieving target volumes.
+Conduct a simulation to calculate Jito tip fees and Raydium 5bps charges, allowing you to understand the complete cost associated with achieving target volume.
 
 #### d) Execute Volume Transactions
 
