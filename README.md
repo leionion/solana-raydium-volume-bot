@@ -58,8 +58,11 @@ Retrieve remaining funds from the keypairs, consolidating WSOL and SOL back to t
 
 ## Additional Support
 
-For comprehensive guidance and updates, directly contact @inscNix on Telegram. Extended documentation and support are available to assist with any queries.
+I have developed a bot project for version 1. The Premium Version 2 has also been completed, tailored specifically to meet the needs of traders and clients.
 
-### Conclusion
+For detailed guidance and technical assistance, feel free to reach out to me directly on Telegram and Twitter.
 
-Implement the Solana Volume Bot to enhance your Solana transaction operations. Its efficiency ensures a seamless buying and selling experience on the blockchain.
+### Contact info
+
+- Telegram: [@inscNix](https://t.me/inscNix)
+- Twitter: [@chain_sats](https://x.com/chain_sats)
