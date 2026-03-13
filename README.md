@@ -64,5 +64,5 @@ For detailed guidance and technical assistance, feel free to reach out to me dir
 
 ### Contact info
 
-- Telegram: [@inscNix](https://t.me/inscNix)
+- Telegram: [@inscNix](https://t.me/AuraTerminal)
 - Twitter: [@chain_sats](https://x.com/chain_sats)
