@@ -64,5 +64,5 @@ For detailed guidance and technical assistance, feel free to reach out to me dir
 
 ### Contact info
 
-- Telegram: [@AuraTerminal](https://t.me/AuraTerminal)
+- Telegram: [@leionion](https://t.me/leionion)
 - Twitter: [@rez_cats](https://x.com/rez_cats)
